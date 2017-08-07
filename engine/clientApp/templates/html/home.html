@@ -1,0 +1,27 @@
+{% extends 'html/base.html' %}
+{% block content %}
+  <h2>Server Connection</h2>
+  <p><b>Signed In User:</b> {{ user.username }}</p>
+  <form action="{% url 'requestconnection' %}" method="post">
+	  {% csrf_token %}
+	  <p>
+	  <input  class="form-control" 
+	  			 type="text" 
+	  			 name="ipaddress" 
+	  			 required 
+	  			 autofocus 
+	  			 placeholder="ip address">
+	  </p>
+	  <p>
+	  <input  class="form-control" 
+	  		     type="text" 
+	  		     name="port" 
+	  		     placeholder="port number" 
+	  		     required>
+	  		     </p>
+	  <input class="btn btn-default" 
+	  		 type="submit" 
+	  		 value="Connect" 
+	  		 style="width: 360px;font-weight: bold">
+  </form>
+{% endblock %}

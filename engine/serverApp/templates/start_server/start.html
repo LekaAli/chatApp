@@ -1,0 +1,31 @@
+{% extends 'start_server/main.html' %}
+
+{% block startserver %}
+<form method="post" action="{% url 'startserver' %}">
+  {% csrf_token %}
+  <p>
+  <select name="serveroption" class="form-control">
+    <<option value="start">Start Server</option>
+    <<option value="stop">Stop Server</option>
+  </select></p>
+  <p>
+  	<input class="form-control" 
+  			type="text" 
+  			name="host" 
+  			autofocus 
+  			required 
+  			placeholder="host address" >
+	</p>
+  <p>
+  	<input class="form-control" 
+  			type="number" 
+  			name="port" 
+  			required 
+  			placeholder="port number" >
+	</p>
+  <input class="btn btn-default" 
+		 type="submit" 
+		 value="Start Server"  
+		 style="width: 360px;font-weight: bold">
+</form>
+{% endblock %}

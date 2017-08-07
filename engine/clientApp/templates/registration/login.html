@@ -1,0 +1,30 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      <input  class="form-control" 
+              type="text" 
+              name="username" autofocus 
+              required id="id_username" 
+              maxlength="254" 
+              placeholder="Username" />
+    </p>
+    <p>
+    <input class="form-control" 
+           type="password" 
+           name="password" 
+           id="id_password" 
+           placeholder="Password" 
+           required/>
+    </p>
+    <button class="btn btn-default" 
+            type="submit" 
+            style="width: 360px">Login</button>
+  </form>
+  <a class="btn btn-primary" 
+     href="{% url 'social:begin' 'facebook' %}"  
+     style="width: 360px">Login with Facebook</a>
+{% endblock %}

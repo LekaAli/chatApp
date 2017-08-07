@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/amendment.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <script src="{% static 'bootstrap/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/jquery.1.12.4.js' %}"></script>
+    <script src="{% static 'bootstrap/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap/jquery-ui.js' %}"></script>
+	<script>
+			$(document).ready(function(){
+			    $("#sendMsg").click(function(){
+			    	var message = document.getElementById('message');
+			    	if (message.value != "")
+			    	{
+			    		$("#listMessages").append("<li style='background-color:lightblue;padding:10px;border-bottom:1px solid black';font-size:8px><p><label>Sender:{{ username }}</label></p>" + message.value + "</li>");
+			    		$.post("{% url 'sendchat' %}",$("#chatForm").serialize(),function(data){});
+			    		$("#message").val("")
+			    	}
+			        
+			    });
+			});
+	</script>
+</head>
+<body>
+	<div class="container" style="padding-top: 10%">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<ul id="listMessages" style="list-style: none;padding: 0px">
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<form id="chatForm">
+				{% csrf_token %}
+				<p>
+					<textarea name="message" 
+							  id="message" 
+							  class="form-control" 
+							  cols="35" 
+							  rows="2"  
+							  value="" 
+							  required>
+
+					</textarea>
+				</p>
+				<input type="hidden" 
+					   name="client_socket_port" 
+					   value="{{ socket_port }}">
+				
+				<input class="btn btn-primary form-control"
+					   type="button" 
+					   id="sendMsg" 
+					   value="Send Message">
+			</form>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
