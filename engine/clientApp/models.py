@@ -8,5 +8,4 @@ from django.db import models
 class ChatUsers(models.Model):
     id = models.AutoField(primary_key=True)
     sender = models.CharField(max_length=100)
-    recipient = models.CharField(max_length=100)
     comments = models.CharField(max_length=200)

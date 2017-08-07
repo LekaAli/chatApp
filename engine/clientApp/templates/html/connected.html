@@ -12,16 +12,27 @@
     <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
     <script src="{% static 'bootstrap/jquery-ui.js' %}"></script>
 	<script>
-			$(document).ready(function(){
+		$(document).ready(function(){
+
+				{% for chat in chats %}
+					{% if chat.sender == username %}
+						
+							$("#listMessages").append("<li style='background-color:lightblue;padding:10px;border-bottom:1px solid black';font-size:8px><p><label>Sender:{{ username }}</label></p>" + {{ chat.comments }} + "</li>");
+
+					{% else %}
+						$("#listMessages").append("<li style='background-color:lightblue;padding:10px;border-bottom:1px solid black';font-size:8px><p><label>Sender:{{ username }}</label></p>" + {{ chat.comments }} + "</li>");
+					{% endif %}
+				{% endfor %}
+
 			    $("#sendMsg").click(function(){
 			    	var message = document.getElementById('message');
 			    	if (message.value != "")
 			    	{
 			    		$("#listMessages").append("<li style='background-color:lightblue;padding:10px;border-bottom:1px solid black';font-size:8px><p><label>Sender:{{ username }}</label></p>" + message.value + "</li>");
-			    		$.post("{% url 'sendchat' %}",$("#chatForm").serialize(),function(data){});
+			    		$.post("{% url 'sendchat' %}",$("#chatForm").serialize(),function(response){
+			    		});
 			    		$("#message").val("")
 			    	}
-			        
 			    });
 			});
 	</script>
